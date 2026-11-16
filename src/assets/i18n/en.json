@@ -60,6 +60,7 @@
   "CART": {
     "TITLE": "Cart",
     "EMPTY": "Your cart is empty.",
+    "EMPTY_HINT": "Save the pieces you like, then come back here to check out.",
     "CONTINUE": "Continue shopping",
     "REMOVE": "Remove",
     "SUMMARY": "Order summary",

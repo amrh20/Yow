@@ -1,8 +1,18 @@
 <h1 class="text-xl font-semibold tracking-tight">{{ 'CART.TITLE' | translate }}</h1>
 
 @if (items().length === 0) {
-  <p class="mt-6 text-sm text-black/55">{{ 'CART.EMPTY' | translate }}</p>
-  <a routerLink="/shop" class="mt-4 inline-block text-sm font-medium hover:text-primary">{{ 'CART.CONTINUE' | translate }}</a>
+  <div class="mx-auto mt-10 max-w-md rounded-2xl border border-black/10 bg-white px-6 py-14 text-center">
+    <span class="inline-flex h-16 w-16 items-center justify-center rounded-full bg-red-50 text-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-7 w-7" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25h9.75m-9.75 0L6.106 5.272M7.5 14.25l-.94 3.76A1.125 1.125 0 0 0 7.644 19.5h10.212M16.5 21a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-7.5 0a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+      </svg>
+    </span>
+    <h2 class="mt-5 text-lg font-semibold tracking-tight">{{ 'CART.EMPTY' | translate }}</h2>
+    <p class="mx-auto mt-2 max-w-xs text-sm leading-6 text-black/50">{{ 'CART.EMPTY_HINT' | translate }}</p>
+    <a routerLink="/shop" class="mt-8 inline-flex h-11 items-center rounded-md bg-primary px-6 text-sm font-medium text-white">
+      {{ 'CART.CONTINUE' | translate }}
+    </a>
+  </div>
 } @else {
   <div class="mt-8 grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px]">
     <ul class="divide-y divide-black/10 border-y border-black/10">
