@@ -1,0 +1,40 @@
+<section class="overflow-hidden rounded-lg bg-black text-white">
+  <div class="grid md:grid-cols-2">
+    <div class="flex flex-col justify-center px-8 py-14 md:px-12 md:py-20">
+      <p class="text-xs tracking-[0.22em] text-white/55">{{ 'HOME.EYEBROW' | translate }}</p>
+      <h1 class="mt-4 max-w-sm text-4xl font-semibold tracking-tight md:text-5xl">{{ 'HOME.TITLE' | translate }}</h1>
+      <p class="mt-4 max-w-sm text-sm leading-6 text-white/65">{{ 'HOME.BODY' | translate }}</p>
+      <a routerLink="/shop" class="mt-8 inline-flex h-11 w-fit items-center rounded-md bg-primary px-6 text-sm font-medium text-white">
+        {{ 'HOME.CTA' | translate }}
+      </a>
+    </div>
+    <img
+      src="https://picsum.photos/seed/yow-hero/1200/900"
+      alt=""
+      class="h-64 w-full object-cover md:h-full"
+    />
+  </div>
+</section>
+
+<section class="mt-14">
+  <div class="flex items-end justify-between gap-4">
+    <h2 class="text-xl font-semibold tracking-tight">{{ 'HOME.CATEGORIES' | translate }}</h2>
+    <a routerLink="/shop" class="text-sm text-black/55 hover:text-black">{{ 'HOME.VIEW_ALL' | translate }}</a>
+  </div>
+  <div class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-3">
+    @for (category of categories; track category.slug) {
+      <a [routerLink]="['/category', category.slug]" class="group block">
+        <div class="relative aspect-[4/5] overflow-hidden rounded-md bg-black/5">
+          <img
+            [src]="category.image"
+            [alt]="category.name | categoryLabel: category.nameAr"
+            class="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+          />
+          <span class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent px-4 pb-4 pt-10 text-sm font-medium text-white">
+            {{ category.name | categoryLabel: category.nameAr }}
+          </span>
+        </div>
+      </a>
+    }
+  </div>
+</section>

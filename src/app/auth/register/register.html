@@ -1,0 +1,47 @@
+<section class="mx-auto w-full max-w-md rounded-lg border border-black/10 bg-white p-8">
+  <h1 class="text-xl font-semibold tracking-tight">{{ 'AUTH.CREATE' | translate }}</h1>
+  <p class="mt-1 text-sm text-black/50">{{ 'AUTH.CREATE_HINT' | translate }}</p>
+
+  <form class="mt-8 space-y-5" [formGroup]="form" (ngSubmit)="submit()">
+    <label class="block">
+      <span class="text-sm text-black/70">{{ 'AUTH.FULL_NAME' | translate }}</span>
+      <input
+        type="text"
+        formControlName="fullName"
+        autocomplete="name"
+        class="mt-1.5 h-11 w-full rounded-md border border-black/15 bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-black"
+      />
+    </label>
+    <label class="block">
+      <span class="text-sm text-black/70">{{ 'AUTH.MOBILE' | translate }}</span>
+      <input
+        type="tel"
+        formControlName="mobile"
+        autocomplete="tel"
+        class="mt-1.5 h-11 w-full rounded-md border border-black/15 bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-black"
+      />
+    </label>
+    <label class="block">
+      <span class="text-sm text-black/70">{{ 'AUTH.PASSWORD' | translate }}</span>
+      <input
+        type="password"
+        formControlName="password"
+        autocomplete="new-password"
+        class="mt-1.5 h-11 w-full rounded-md border border-black/15 bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-black"
+      />
+    </label>
+
+    @if (form.invalid && form.touched) {
+      <p class="text-sm text-primary">{{ 'AUTH.INVALID' | translate }}</p>
+    }
+
+    <button type="submit" class="h-11 w-full rounded-md bg-primary text-sm font-medium text-white">
+      {{ 'AUTH.CREATE' | translate }}
+    </button>
+  </form>
+
+  <p class="mt-6 text-sm text-black/60">
+    {{ 'AUTH.ALREADY' | translate }}
+    <a routerLink="/login" class="font-medium text-black hover:text-primary">{{ 'AUTH.SIGN_IN' | translate }}</a>
+  </p>
+</section>

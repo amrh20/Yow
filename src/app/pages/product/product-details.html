@@ -1,0 +1,106 @@
+@if (!product()) {
+  <section class="rounded-lg border border-black/10 bg-white p-8">
+    <h1 class="text-xl font-semibold tracking-tight">{{ 'PRODUCT.NOT_FOUND' | translate }}</h1>
+    <a routerLink="/shop" class="mt-4 inline-block text-sm text-black/60 hover:text-black">{{ 'PRODUCT.BACK' | translate }}</a>
+  </section>
+} @else {
+  <div class="grid gap-10 md:grid-cols-2 md:gap-14">
+    <div>
+      <div class="aspect-square w-full max-h-[500px] max-w-[500px] overflow-hidden rounded-md bg-black/5">
+        <img [src]="activeImage()" [alt]="product()!.name | productLabel: product()!.id" class="h-full w-full object-cover" />
+      </div>
+      <div class="mt-3 flex gap-2">
+        @for (image of product()!.images; track image; let index = $index) {
+          <button
+            type="button"
+            class="h-16 w-16 shrink-0 overflow-hidden rounded-md border bg-black/5"
+            [class.border-black]="activeIndex() === index"
+            [class.border-transparent]="activeIndex() !== index"
+            (click)="selectImage(index)"
+          >
+            <img [src]="image" [alt]="'View ' + (index + 1)" class="h-full w-full object-cover" />
+          </button>
+        }
+      </div>
+    </div>
+
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight">{{ product()!.name | productLabel: product()!.id }}</h1>
+      <p class="mt-3 flex items-baseline gap-3">
+        <span class="text-lg font-semibold">EGP {{ (selectedVariant()?.price ?? product()!.price) | number:'1.0-0' }}</span>
+        @if (selectedVariant()?.compareAtPrice ?? product()!.compareAt; as previous) {
+          <span class="text-sm text-black/40 line-through">EGP {{ previous | number:'1.0-0' }}</span>
+        }
+      </p>
+      <p class="mt-5 max-w-md text-sm leading-6 text-black/65">{{ product()!.description | productLabel: product()!.id : 'description' }}</p>
+
+      @if (product()!.variants.length > 1) {
+        <div class="mt-7">
+          <p class="text-xs tracking-wide text-black/45">{{ 'PRODUCT.SIZE' | translate }}</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            @for (variant of product()!.variants; track variant.id) {
+              <button
+                type="button"
+                class="h-9 rounded-full border px-4 text-sm"
+                [class.border-black]="selectedVariant()?.id === variant.id"
+                [class.ring-1]="selectedVariant()?.id === variant.id"
+                [class.ring-black]="selectedVariant()?.id === variant.id"
+                [class.border-black/15]="selectedVariant()?.id !== variant.id"
+                (click)="selectVariant(variant)"
+              >
+                {{ variant.name | tokenLabel }}
+              </button>
+            }
+          </div>
+        </div>
+      }
+
+      @for (option of displayOptions(); track option.name) {
+        <div class="mt-7">
+          <p class="text-xs tracking-wide text-black/45">{{ option.name | tokenLabel }}</p>
+          <div class="mt-2 flex flex-wrap gap-2">
+            @for (value of option.values; track value) {
+              @if (option.name === 'Color') {
+                <button
+                  type="button"
+                  class="h-8 w-8 rounded-full border"
+                  [class.border-black]="selected()[option.name] === value"
+                  [class.border-black/15]="selected()[option.name] !== value"
+                  [style.background]="swatches[value]"
+                  [attr.aria-label]="value | tokenLabel"
+                  (click)="selectOption(option.name, value)"
+                ></button>
+              } @else {
+                <button
+                  type="button"
+                  class="h-9 rounded-full border px-4 text-sm"
+                  [class.border-black]="selected()[option.name] === value"
+                  [class.bg-black]="selected()[option.name] === value"
+                  [class.text-white]="selected()[option.name] === value"
+                  [class.border-black/15]="selected()[option.name] !== value"
+                  (click)="selectOption(option.name, value)"
+                >
+                  {{ value | tokenLabel }}
+                </button>
+              }
+            }
+          </div>
+        </div>
+      }
+
+      <div class="mt-8 flex h-11 w-32 items-center justify-between rounded-md border border-black/15 px-2">
+        <button type="button" class="h-8 w-8 text-lg" [attr.aria-label]="'PRODUCT.DECREASE' | translate" (click)="decrease()">−</button>
+        <span class="text-sm">{{ quantity() }}</span>
+        <button type="button" class="h-8 w-8 text-lg" [attr.aria-label]="'PRODUCT.INCREASE' | translate" (click)="increase()">+</button>
+      </div>
+
+      <button
+        type="button"
+        class="mt-4 h-12 w-full rounded-md bg-primary text-sm font-medium text-white"
+        (click)="addToCart()"
+      >
+        {{ (added() ? 'PRODUCT.ADDED' : 'PRODUCT.ADD') | translate }}
+      </button>
+    </div>
+  </div>
+}

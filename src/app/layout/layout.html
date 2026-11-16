@@ -1,0 +1,202 @@
+<div class="flex min-h-screen flex-col bg-surface pb-20 text-black md:pb-0">
+  <header class="sticky top-0 z-40 border-b border-black/10 bg-white/90 backdrop-blur">
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-3 px-5 md:gap-4 md:px-8">
+      <a routerLink="/" class="shrink-0 text-lg font-semibold tracking-tight">
+        Yow<span class="text-primary">.</span>
+      </a>
+
+      <label class="relative flex min-w-0 flex-1 items-center md:hidden">
+        <span class="sr-only">{{ 'LAYOUT.SEARCH' | translate }}</span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="pointer-events-none absolute start-3 h-4 w-4 text-black/40" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" />
+        </svg>
+        <input
+          type="search"
+          [value]="searchQuery()"
+          (input)="onSearchInput($any($event.target).value)"
+          [placeholder]="'LAYOUT.SEARCH' | translate"
+          class="h-10 w-full rounded-full border border-black/10 bg-surface ps-9 pe-4 text-sm outline-none placeholder:text-black/35 focus:border-black/30"
+        />
+      </label>
+
+      <nav class="hidden flex-1 items-center justify-center gap-8 md:flex" aria-label="Primary">
+        @for (item of nav; track item.path) {
+          <a
+            [routerLink]="item.path"
+            routerLinkActive="text-black"
+            [routerLinkActiveOptions]="{ exact: item.exact }"
+            class="text-sm tracking-wide text-black/55 transition-colors hover:text-black"
+          >
+            {{ item.labelKey | translate }}
+          </a>
+        }
+      </nav>
+
+      <div class="ms-auto flex items-center gap-1">
+        @if (searchOpen()) {
+          <label class="hidden items-center md:flex">
+            <span class="sr-only">{{ 'LAYOUT.SEARCH' | translate }}</span>
+            <input
+              type="search"
+              [value]="searchQuery()"
+              (input)="onSearchInput($any($event.target).value)"
+              [placeholder]="'LAYOUT.SEARCH' | translate"
+              class="h-9 w-44 rounded-full border border-black/10 bg-surface px-4 text-sm outline-none placeholder:text-black/35 focus:border-black/30"
+            />
+          </label>
+        }
+        <button
+          type="button"
+          class="hidden h-10 w-10 items-center justify-center rounded-full text-black hover:bg-surface md:inline-flex"
+          [attr.aria-label]="'LAYOUT.SEARCH' | translate"
+          (click)="toggleSearch()"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z" />
+          </svg>
+        </button>
+        <a
+          [routerLink]="currentUser() ? '/profile' : '/login'"
+          routerLinkActive="bg-surface"
+          [attr.aria-label]="'LAYOUT.ACCOUNT' | translate"
+          class="hidden h-10 w-10 items-center justify-center rounded-full text-black hover:bg-surface md:inline-flex"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+          </svg>
+        </a>
+        <a
+          routerLink="/cart"
+          routerLinkActive="bg-surface"
+          [attr.aria-label]="'LAYOUT.CART' | translate"
+          class="relative hidden h-10 w-10 items-center justify-center rounded-full text-black hover:bg-surface md:inline-flex"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25h9.75m-9.75 0L6.106 5.272M7.5 14.25l-.94 3.76A1.125 1.125 0 0 0 7.644 19.5h10.212M16.5 21a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-7.5 0a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+          </svg>
+          @if (cartCount() > 0) {
+            <span class="absolute end-1 top-1 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-medium leading-none text-white">
+              {{ cartCount() }}
+            </span>
+          }
+        </a>
+        <button
+          type="button"
+          class="ms-1 hidden h-10 items-center gap-1.5 rounded-full px-2 text-xs font-medium tracking-wide text-black hover:bg-surface md:inline-flex"
+          [attr.aria-label]="'LANG.SWITCH' | translate"
+          (click)="toggleLanguage()"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-5 w-5" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path stroke-linecap="round" d="M3 12h18M12 3c2.5 2.6 3.8 5.7 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.7-3.8-9s1.3-6.4 3.8-9Z" />
+          </svg>
+          <span>{{ currentLang() === 'ar' ? ('LANG.AR' | translate) : ('LANG.EN' | translate) }}</span>
+        </button>
+      </div>
+    </div>
+
+    @if (deliveryAddress(); as place) {
+      @if (place.addressString) {
+        <div class="border-t border-black/5 bg-white">
+          <p class="mx-auto flex max-w-6xl items-center gap-1.5 px-5 py-1.5 text-xs text-black/60 md:px-8">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-3.5 w-3.5 shrink-0 text-primary" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+            </svg>
+            <span>{{ 'LOCATION.DELIVER' | translate }}: {{ place.addressString }}</span>
+          </p>
+        </div>
+      }
+    }
+
+  </header>
+
+  <main class="mx-auto w-full max-w-6xl flex-1 px-5 py-10 md:px-8">
+    <router-outlet />
+  </main>
+
+  <footer class="mt-auto border-t border-black/10 bg-white">
+    <div class="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-12 md:flex-row md:items-start md:justify-between md:px-8">
+      <div>
+        <p class="text-lg font-semibold tracking-tight">Yow<span class="text-primary">.</span></p>
+        <p class="mt-2 max-w-xs text-sm text-black/50">{{ 'LAYOUT.TAGLINE' | translate }}</p>
+      </div>
+      <nav class="flex gap-8 text-sm text-black/70" aria-label="Footer">
+        <a routerLink="/" class="hover:text-black">{{ 'NAV.HOME' | translate }}</a>
+        <a routerLink="/shop" class="hover:text-black">{{ 'NAV.CATEGORIES' | translate }}</a>
+        <a routerLink="/cart" class="hover:text-black">{{ 'NAV.CART' | translate }}</a>
+        <a routerLink="/profile" class="hover:text-black">{{ 'NAV.PROFILE' | translate }}</a>
+      </nav>
+    </div>
+    <div class="border-t border-black/5">
+      <p class="mx-auto max-w-6xl px-5 py-5 text-xs tracking-wide text-black/40 md:px-8">
+        © {{ year }} Yow. {{ 'LAYOUT.RIGHTS' | translate }}
+      </p>
+    </div>
+  </footer>
+
+  <nav
+    class="fixed bottom-0 z-[100] block w-full border-t border-gray-200 bg-white pb-safe md:hidden"
+    aria-label="Mobile"
+  >
+    <div class="flex items-center justify-around px-1 py-2">
+      <a
+        routerLink="/"
+        routerLinkActive="text-primary"
+        [routerLinkActiveOptions]="{ exact: true }"
+        class="flex flex-col items-center justify-center gap-1 text-gray-500"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-6 w-6" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m2.25 12 8.954-8.955a1.126 1.126 0 0 1 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+        </svg>
+        <span class="text-[10px] font-medium">{{ 'NAV.HOME' | translate }}</span>
+      </a>
+
+      <a
+        routerLink="/shop"
+        routerLinkActive="text-primary"
+        class="flex flex-col items-center justify-center gap-1 text-gray-500"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-6 w-6" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+        </svg>
+        <span class="text-[10px] font-medium">{{ 'NAV.CATEGORIES' | translate }}</span>
+      </a>
+
+      <a
+        routerLink="/cart"
+        routerLinkActive="text-primary"
+        class="relative flex flex-col items-center justify-center gap-1 text-gray-500"
+      >
+        <span class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-6 w-6" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25h9.75m-9.75 0L6.106 5.272M7.5 14.25l-.94 3.76A1.125 1.125 0 0 0 7.644 19.5h10.212M16.5 21a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm-7.5 0a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+          </svg>
+          @if (cartCount() > 0) {
+            <span class="absolute -end-2 -top-1.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-medium leading-none text-white">
+              {{ cartCount() }}
+            </span>
+          }
+        </span>
+        <span class="text-[10px] font-medium">{{ 'NAV.CART' | translate }}</span>
+      </a>
+
+      <a
+        [routerLink]="currentUser() ? '/profile' : '/login'"
+        routerLinkActive="text-primary"
+        class="flex flex-col items-center justify-center gap-1 text-gray-500"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="h-6 w-6" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+        </svg>
+        <span class="text-[10px] font-medium">{{ 'NAV.PROFILE' | translate }}</span>
+      </a>
+    </div>
+  </nav>
+
+  @if (showLocationPrompt()) {
+    <app-location-prompt />
+  }
+
+  <app-toast />
+</div>

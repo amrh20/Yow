@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Space-separated RGB so Tailwind opacity utilities can compose. */
+  --color-primary: 229 9 20; /* #E50914 */
+  --color-black: 10 10 10;
+  --color-surface: 250 250 250;
+  --color-white: 255 255 255;
+}
+
+body {
+  @apply bg-surface font-sans text-black antialiased;
+}

@@ -1,0 +1,134 @@
+{
+  "NAV": {
+    "HOME": "Home",
+    "SHOP": "Shop",
+    "CATEGORIES": "Categories",
+    "CART": "Cart",
+    "PROFILE": "Profile"
+  },
+  "LANG": {
+    "SWITCH": "Change language",
+    "EN": "EN",
+    "AR": "AR"
+  },
+  "LOCATION": {
+    "TITLE": "Discover nearby stores",
+    "BODY": "We need your location to show available products and deliver faster.",
+    "ALLOW": "Allow Location",
+    "LATER": "Not Now",
+    "DELIVER": "Deliver to"
+  },
+  "LAYOUT": {
+    "MENU": "Open menu",
+    "SEARCH": "Search",
+    "ACCOUNT": "Account",
+    "CART": "Cart",
+    "TAGLINE": "Considered goods, simply presented.",
+    "RIGHTS": "All rights reserved."
+  },
+  "HOME": {
+    "EYEBROW": "NEW SEASON",
+    "TITLE": "Quiet pieces, made to last.",
+    "BODY": "Apparel, home, and the small things you reach for every day.",
+    "CTA": "Shop the edit",
+    "CATEGORIES": "Categories",
+    "VIEW_ALL": "View all"
+  },
+  "SHOP": {
+    "NOT_FOUND": "Category not found",
+    "BROWSE": "Browse all products",
+    "ALL": "All products",
+    "ALL_SHORT": "All",
+    "PIECES": "pieces",
+    "SORT": "Sort",
+    "FEATURED": "Featured",
+    "PRICE_ASC": "Price, low to high",
+    "PRICE_DESC": "Price, high to low",
+    "SALE_ONLY": "Sale only",
+    "EMPTY": "Nothing matches this filter."
+  },
+  "PRODUCT": {
+    "NOT_FOUND": "Product not found",
+    "BACK": "Back to the shop",
+    "SIZE": "Size",
+    "SALE": "Sale",
+    "ADD": "Add to Cart",
+    "ADDED": "Added to cart",
+    "DECREASE": "Decrease quantity",
+    "INCREASE": "Increase quantity"
+  },
+  "CART": {
+    "TITLE": "Cart",
+    "EMPTY": "Your cart is empty.",
+    "CONTINUE": "Continue shopping",
+    "REMOVE": "Remove",
+    "SUMMARY": "Order summary",
+    "SUBTOTAL": "Subtotal",
+    "SHIPPING": "Shipping",
+    "FREE": "Free",
+    "TOTAL": "Total",
+    "CHECKOUT": "Proceed to Checkout"
+  },
+  "CHECKOUT": {
+    "TITLE": "Checkout",
+    "ADDRESS": "Delivery address",
+    "ADD_ADDRESS": "Add new address",
+    "PAYMENT": "Payment method",
+    "COD": "Cash on Delivery",
+    "CARD": "Credit Card",
+    "REVIEW": "Order review",
+    "QTY": "Qty",
+    "PAY_COD": "Pay when the order arrives.",
+    "PAY_CARD": "The card is charged when the order is placed.",
+    "PLACE": "Place Order"
+  },
+  "SUCCESS": {
+    "EYEBROW": "ORDER CONFIRMED",
+    "TITLE": "Thank you.",
+    "BODY": "Your order is in. We’ll send updates to your mobile number.",
+    "PREPARING": "is being prepared.",
+    "CONTINUE": "Continue Shopping",
+    "TRACK": "Track Order"
+  },
+  "AUTH": {
+    "SIGN_IN": "Sign in",
+    "SIGN_IN_HINT": "Use the mobile number on your account.",
+    "MOBILE": "Mobile Number",
+    "PASSWORD": "Password",
+    "BAD_CREDENTIALS": "Mobile number or password is incorrect.",
+    "FORGOT": "Forgot password",
+    "CREATE": "Create account",
+    "CREATE_HINT": "Full name, mobile number, and a password.",
+    "FULL_NAME": "Full Name",
+    "INVALID": "Enter your name, a mobile number, and a password of at least 6 characters.",
+    "ALREADY": "Already registered?",
+    "RESET": "Reset password",
+    "RESET_HINT": "We will send a reset code to this mobile number.",
+    "SENT": "A reset code is on its way to that number.",
+    "UNKNOWN": "No account uses that mobile number.",
+    "SEND": "Send reset code",
+    "BACK": "Back to sign in"
+  },
+  "PROFILE": {
+    "TITLE": "Profile",
+    "NAME": "Name",
+    "MOBILE": "Mobile",
+    "SIGN_OUT": "Sign out",
+    "GUEST": "Sign in to see your name and mobile number.",
+    "ADDRESSES": "Addresses",
+    "ADD": "Add address",
+    "EMPTY": "No saved addresses yet.",
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "EDIT_ADDRESS": "Edit address",
+    "NEW_ADDRESS": "New address",
+    "TITLE_FIELD": "Title",
+    "TITLE_PLACEHOLDER": "Home or Work",
+    "STREET": "Street",
+    "BUILDING": "Building",
+    "FLOOR": "Floor",
+    "CITY": "City",
+    "SAVE": "Save address",
+    "CANCEL": "Cancel"
+  }
+}

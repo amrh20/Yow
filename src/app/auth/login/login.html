@@ -1,0 +1,38 @@
+<section class="mx-auto w-full max-w-md rounded-lg border border-black/10 bg-white p-8">
+  <h1 class="text-xl font-semibold tracking-tight">{{ 'AUTH.SIGN_IN' | translate }}</h1>
+  <p class="mt-1 text-sm text-black/50">{{ 'AUTH.SIGN_IN_HINT' | translate }}</p>
+
+  <form class="mt-8 space-y-5" [formGroup]="form" (ngSubmit)="submit()">
+    <label class="block">
+      <span class="text-sm text-black/70">{{ 'AUTH.MOBILE' | translate }}</span>
+      <input
+        type="tel"
+        formControlName="mobile"
+        autocomplete="tel"
+        class="mt-1.5 h-11 w-full rounded-md border border-black/15 bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-black"
+      />
+    </label>
+    <label class="block">
+      <span class="text-sm text-black/70">{{ 'AUTH.PASSWORD' | translate }}</span>
+      <input
+        type="password"
+        formControlName="password"
+        autocomplete="current-password"
+        class="mt-1.5 h-11 w-full rounded-md border border-black/15 bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-black"
+      />
+    </label>
+
+    @if (error()) {
+      <p class="text-sm text-primary">{{ error() | translate }}</p>
+    }
+
+    <button type="submit" class="h-11 w-full rounded-md bg-primary text-sm font-medium text-white">
+      {{ 'AUTH.SIGN_IN' | translate }}
+    </button>
+  </form>
+
+  <div class="mt-6 flex items-center justify-between text-sm">
+    <a routerLink="/forgot-password" class="text-black/60 hover:text-black">{{ 'AUTH.FORGOT' | translate }}</a>
+    <a routerLink="/register" class="font-medium hover:text-primary">{{ 'AUTH.CREATE' | translate }}</a>
+  </div>
+</section>

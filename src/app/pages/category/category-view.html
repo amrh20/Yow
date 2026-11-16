@@ -1,0 +1,64 @@
+@if (missing()) {
+  <section class="rounded-lg border border-black/10 bg-white p-8">
+    <h1 class="text-xl font-semibold tracking-tight">{{ 'SHOP.NOT_FOUND' | translate }}</h1>
+    <a routerLink="/shop" class="mt-4 inline-block text-sm text-black/60 hover:text-black">{{ 'SHOP.BROWSE' | translate }}</a>
+  </section>
+} @else {
+  <div class="flex flex-col gap-8 md:flex-row md:items-start">
+    <aside class="w-full shrink-0 md:w-52">
+      <h1 class="text-xl font-semibold tracking-tight">
+        @if (category(); as current) {
+          {{ current.name | categoryLabel: current.nameAr }}
+        } @else {
+          {{ 'SHOP.ALL' | translate }}
+        }
+      </h1>
+      <p class="mt-1 text-sm text-black/50">{{ products().length }} {{ 'SHOP.PIECES' | translate }}</p>
+
+      <label class="mt-8 block text-xs tracking-wide text-black/45">{{ 'SHOP.SORT' | translate }}</label>
+      <select
+        class="mt-2 h-11 w-full rounded-md border border-black/15 bg-white px-3 text-sm outline-none focus:ring-2 focus:ring-black"
+        [value]="sort()"
+        (change)="setSort($any($event.target).value)"
+      >
+        <option value="featured">{{ 'SHOP.FEATURED' | translate }}</option>
+        <option value="price-asc">{{ 'SHOP.PRICE_ASC' | translate }}</option>
+        <option value="price-desc">{{ 'SHOP.PRICE_DESC' | translate }}</option>
+      </select>
+
+      <label class="mt-5 flex items-center gap-2 text-sm">
+        <input
+          type="checkbox"
+          class="h-4 w-4 accent-black"
+          [checked]="saleOnly()"
+          (change)="toggleSale($any($event.target).checked)"
+        />
+        {{ 'SHOP.SALE_ONLY' | translate }}
+      </label>
+
+      <nav class="mt-8 hidden flex-col gap-2 text-sm md:flex" aria-label="Categories">
+        <a routerLink="/shop" class="text-black/60 hover:text-black" [class.text-black]="!category()" [class.font-medium]="!category()">{{ 'SHOP.ALL_SHORT' | translate }}</a>
+        @for (item of categories; track item.slug) {
+          <a
+            [routerLink]="['/category', item.slug]"
+            class="text-black/60 hover:text-black"
+            [class.text-black]="category()?.slug === item.slug"
+            [class.font-medium]="category()?.slug === item.slug"
+          >
+            {{ item.name | categoryLabel: item.nameAr }}
+          </a>
+        }
+      </nav>
+    </aside>
+
+    @if (products().length === 0) {
+      <p class="text-sm text-black/50">{{ 'SHOP.EMPTY' | translate }}</p>
+    } @else {
+      <div class="grid flex-1 grid-cols-2 gap-x-4 gap-y-8 lg:grid-cols-3">
+        @for (product of products(); track product.id) {
+          <app-product-card [product]="product" />
+        }
+      </div>
+    }
+  </div>
+}
